@@ -1,14 +1,11 @@
 <script setup lang="ts">
+import Navbar from './components/Navbar.vue'
+
 </script>
 
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link :to="{ name: 'product' }">Product</router-link>
-      <router-link :to="{ name: 'productdetail', params: { id: 123 } }">Detail</router-link>
-      <router-link :to="{ name: 'cart' }">Cart</router-link>
-
-    </div>
+    <Navbar></Navbar>
     <router-view></router-view>
   </div>
 </template>

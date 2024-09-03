@@ -1,8 +1,9 @@
 <script setup lang="ts">
 
-import { computed, onMounted } from "vue"
+import { computed } from "vue"
 import { useRoute } from "vue-router"
 import { products } from "../../data-seed"
+import NotFound from '../error/404.vue'
 
 export type Product = {
   id: string;
@@ -35,6 +36,7 @@ const product = computed<Product | undefined>(() => {
             <p>{{ product.description }}</p>
         </div>
     </div>   
+    <NotFound v-else></NotFound>
 </template>
 
 <style scoped>
