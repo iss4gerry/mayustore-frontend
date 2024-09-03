@@ -4,7 +4,7 @@ import { products } from '../../data-seed'
 </script>
 
 <template>
-    <div class="page-wrap">
+    <div id="page-wrap">
         <div class="grid-wrap">
             <div v-for="(product) in products" 
             :key="product.id"
