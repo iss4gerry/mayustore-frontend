@@ -1,30 +1,40 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div id="app">
+    <div id="nav">
+      <router-link :to="{ name: 'product' }">Product</router-link>
+      <router-link :to="{ name: 'productdetail', params: { id: 123 } }">Detail</router-link>
+      <router-link :to="{ name: 'cart' }">Cart</router-link>
+
+    </div>
+    <router-view></router-view>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+<style>
+* {
+  box-sizing: border-box;
+  font-family: Arial;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+#page-wrap {
+  margin: auto;
+  max-width: 800px;
+  min-height: 100vh;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+
+button {
+  background-color: #41B883;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  outline: 0;
+  padding: 16px;
 }
 </style>
+
