@@ -4,7 +4,7 @@ import { computed, onMounted } from "vue"
 import { useRoute } from "vue-router"
 import { products } from "../../data-seed"
 
-type Product = {
+export type Product = {
   id: string;
   name: string;
   price: string;
@@ -17,19 +17,13 @@ type Product = {
 const route = useRoute()
 
 const product = computed<Product | undefined>(() => {
-    return products.find((p) => {
-        return p.id === route.params.id
-    })
-})
-
-onMounted(() => {
-    console.log(product.value)
+    return products.find((p) => p.id === route.params.id)
 })
 
 </script>
 
 <template>
-    <div id="page-wrap">
+    <div v-if="product" id="page-wrap">
         <div id="img-wrap">
             <img :src="product.imageUrl">
         </div>
