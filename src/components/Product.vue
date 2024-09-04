@@ -1,17 +1,16 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import { Product } from '../views/product/Detail.vue'
+import { ProductResponse } from '../views/product/Index.vue';
 
 const { products } = defineProps(['products'])
-const productItem: Product = products as Product
+const productItem: ProductResponse = products as ProductResponse
 </script>
 
 <template>
     <div class="product-item">
-            <img :src="productItem.imageUrl">
+            <img :src="`http://localhost:3000${productItem.imageUrl}`">
             <h3 class="product-name"> {{ productItem.name }} </h3>
             <p class="product-price">Rp{{ productItem.price }}</p>
-            <router-link :to="{ name: 'productdetail', params: { id: productItem.id } }">
+            <router-link :to="{ name: 'productdetail', params: { id: productItem.code } }">
             <button>Detail</button>
             </router-link>
     </div>

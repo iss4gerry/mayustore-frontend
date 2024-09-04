@@ -21,7 +21,8 @@
     text-align: center;
     display: block;
     color: #41B883;
-    font-size: 22px;
+    font-size: 42px;
+    font-weight: bold;
     left: 32px;
     position: absolute;
     top: 16px;

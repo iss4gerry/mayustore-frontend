@@ -1,6 +1,26 @@
 <script setup lang="ts">
-import Products from '../../components/Product.vue'
-import { products } from '../../data-seed'
+import axios from "axios"
+import { onMounted } from 'vue';
+import { ref } from "vue";
+import Products from "../../components/Product.vue";
+
+export type ProductResponse = {
+    id: string
+    code: string
+    name: string
+    price: number
+    description: string
+    imageUrl: string
+    averageRating: number
+}
+
+const products = ref<ProductResponse[]>([])
+
+onMounted(async () => {
+    const result = await axios.get('http://localhost:3000/api/products')
+    const { data } = result.data
+    products.value = data
+})
 
 </script>
 

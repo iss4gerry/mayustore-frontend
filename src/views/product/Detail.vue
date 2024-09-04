@@ -1,38 +1,43 @@
 <script setup lang="ts">
-
-import { computed } from "vue"
+import axios from 'axios'
 import { useRoute } from "vue-router"
-import { products } from "../../data-seed"
 import NotFound from '../error/404.vue'
-
-export type Product = {
-  id: string;
-  name: string;
-  price: string;
-  description: string;
-  imageUrl: string;
-  averageRating: string;
-};
-
+import { ref, onMounted } from "vue";
+import { ProductResponse } from "./Index.vue";
 
 const route = useRoute()
+const product = ref<ProductResponse>()
+const notif = ref(false)
 
-const product = computed<Product | undefined>(() => {
-    return products.find((p) => p.id === route.params.id)
+onMounted(async () => {
+  const result = await axios.get(`http://localhost:3000/api/products/${route.params.id}`)
+  const { data } = result.data
+  product.value = data
 })
+
+const addToCart = async (userId: number, code: number) => {
+    const result = await axios.post(`http://localhost:3000/api/orders/user/${userId}/add`, {
+      product: code
+    })
+
+    if(result.data.status === 200){
+      notif.value = true
+    }
+}
 
 </script>
 
 <template>
     <div v-if="product" id="page-wrap">
+      <h4 v-if="notif" class="notif">Item added successfully</h4>
         <div id="img-wrap">
-            <img :src="product.imageUrl">
+            <img :src="`http://localhost:3000${product.imageUrl}`">
         </div>
         <div id="product-details">
             <h1>{{ product.name }}</h1>
             <h3 id="price"> {{ product.price }}</h3>
             <p>Average Rating:  {{ product.averageRating }}</p>
-            <button id="add-to-cart">Add to cart</button>
+            <button id="add-to-cart" @click="addToCart(1, Number(product.code))">Add to cart</button>
             <p>{{ product.description }}</p>
         </div>
     </div>   
@@ -67,5 +72,13 @@ const product = computed<Product | undefined>(() => {
     position: absolute;
     top: 24px;
     right: 16px;
+  }
+
+  .notif {
+    text-align: center;
+    color: white;
+    background-color: #41b883;
+    padding: 3%;
+    border-radius: 8px;
   }
 </style>
